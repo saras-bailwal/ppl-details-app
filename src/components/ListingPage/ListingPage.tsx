@@ -13,22 +13,10 @@ import SearchIcon from '@mui/icons-material/Search';
 import Avatar from '@mui/material/Avatar';
 import SingleUser from '../SingleUser';
 
-type UserItemProps = {
-    userData: any;
-    editUser: any | null;
-    getEditUser: (editTodo: any) => void;
-    setEditUser: (editTodo: any) => void;
-  };
-
-const ListingPage = ({
-    userData,
-    editUser,
-    getEditUser,
-    setEditUser,
-  }: UserItemProps) => {
+const ListingPage = () => {
     const [users, setUsers] = useState([]);
     const [search, setSearch] = useState("");
-    const [expanded, setExpanded] = React.useState<string | false>(false);
+    const [expanded, setExpanded] = useState<string | false>(false);
 
     useEffect(() => {
         getUsers(usersList);
@@ -39,7 +27,7 @@ const ListingPage = ({
         setUsers(usersList);
     };
     const handleChange =
-        (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+        (panel: string) => (_event: React.SyntheticEvent, isExpanded: boolean) => {
             setExpanded(isExpanded ? panel : false);
         };
     const bySearch = (user: any, search: any) => {
@@ -117,9 +105,6 @@ const ListingPage = ({
                             <SingleUser
                             key={user.id}
                             userData={user}
-                            editUser={editUser}
-                            getEditUser={getEditUser}
-                            setEditUser={setEditUser}
                             />
                         </AccordionDetails>
                     </Accordion>

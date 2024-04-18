@@ -1,0 +1,7 @@
+.labelColor {
+    color: gray;
+}
+
+.gender:first-letter {
+    text-transform: capitalize
+  }

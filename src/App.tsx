@@ -1,13 +1,14 @@
-import { useState } from 'react'
 import './App.css'
-import ListinPage from './components/ListingPage/ListingPage';
-function App() {
-  const [count, setCount] = useState(0)
+import ListingPage from './components/ListingPage/ListingPage';
 
+const App = () => {
   return (
     <>
-      <ListinPage/>
-      
+      <ListingPage userData={undefined} editUser={undefined} getEditUser={function (editTodo: any): void {
+        throw new Error('Function not implemented.');
+      } } setEditUser={function (editTodo: any): void {
+        throw new Error('Function not implemented.');
+      } }/>
     </>
   )
 }

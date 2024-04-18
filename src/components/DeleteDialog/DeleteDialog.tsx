@@ -10,15 +10,18 @@ import { useTheme } from '@mui/material/styles';
 export interface ConfirmationDialogRawProps {
     id: string;
     open: boolean;
+    user: any;
     onClose: (value?: string) => void;
   }
 const DeleteDialog = (props: ConfirmationDialogRawProps) => {
-    const { onClose, open, ...other } = props;
+    const { onClose, open, user } = props;
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
     const handleCancel = () => {
       onClose();
     };
+    const handleDelete = () => {
+    }
    
     React.useEffect(() => {
         if (!open) {
@@ -41,7 +44,7 @@ const DeleteDialog = (props: ConfirmationDialogRawProps) => {
             <Button variant="outlined" onClick={handleCancel} >
               Cancel
             </Button>
-            <Button variant="contained" color="error" autoFocus>
+            <Button variant="contained" color="error" onClick={handleDelete} autoFocus>
               Delete
             </Button>
           </DialogActions>
