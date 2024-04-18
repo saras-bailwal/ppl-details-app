@@ -6,6 +6,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
+import { useAppDispatch } from '../../store/store';
+import { deleteUser } from '../../store/userSlice';
 
 export interface ConfirmationDialogRawProps {
     id: string;
@@ -15,12 +17,15 @@ export interface ConfirmationDialogRawProps {
   }
 const DeleteDialog = (props: ConfirmationDialogRawProps) => {
     const { onClose, open, user } = props;
+    const dispatch = useAppDispatch();
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
     const handleCancel = () => {
       onClose();
     };
     const handleDelete = () => {
+      console.log("not came here", user)
+      dispatch(deleteUser({ id: user.id }))
     }
    
     React.useEffect(() => {

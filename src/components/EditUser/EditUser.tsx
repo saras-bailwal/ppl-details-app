@@ -11,6 +11,8 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import MsgDisplay from '../MsgDisplay';
 import React from 'react';
+import { useAppDispatch } from '../../store/store';
+import { updateUserData } from '../../store/userSlice';
 
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
   'label + &': {
@@ -50,13 +52,20 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
 }));
 
 
-type EditItemProps = {
+export interface EditItemProps {
     editUser: any | null;
     onCancel: () => void;
   }; 
 
 const EditUser = ({editUser, onCancel}: EditItemProps) => {
+  const dispatch = useAppDispatch();
   const [openModal, setOpenModal] = React.useState(false);
+  const [genderData, setGenderData] = React.useState(editUser.gender);
+  const [countryData, setCountryData] = React.useState(editUser.country);
+  const [descData, setDescData] = React.useState(editUser.description);
+
+
+
   const [editBtnDisabled, setEditBtnDisabled] = React.useState(false);
   const [msg, setMsg] = React.useState("");
     const handleCancel = () => {
@@ -69,8 +78,19 @@ const EditUser = ({editUser, onCancel}: EditItemProps) => {
         setMsg("Description cannot be empty");
         setEditBtnDisabled(true)
       } else {
+        setDescData(event?.target?.value);
         setEditBtnDisabled(false)
       }
+    }
+
+    const handleUpdateData = () => {
+      dispatch(updateUserData({
+        id: editUser.id,
+        gender: genderData,
+        country: countryData,
+        description: descData
+      }));
+      onCancel();
     }
 
     const genderOptions = [
@@ -126,6 +146,7 @@ const EditUser = ({editUser, onCancel}: EditItemProps) => {
           id="demo-customized-select"
           defaultValue={editUser.gender}
           input={<BootstrapInput />}
+          onChange={(e) => setGenderData(e.target.value)}
         >
           {genderOptions.map((option) => (
             <MenuItem key={option.value} value={option.value}>
@@ -138,7 +159,7 @@ const EditUser = ({editUser, onCancel}: EditItemProps) => {
           <InputLabel shrink htmlFor="bootstrap-input" sx={{ marginLeft: "10px" }}>
             Country
           </InputLabel>
-          <BootstrapInput type='text' defaultValue={editUser.country} id="bootstrap-input"/>
+          <BootstrapInput type='text' onChange={(e) => setCountryData(e.target.value)} defaultValue={editUser.country} id="bootstrap-input"/>
         </FormControl>
       </Box>
         <Box>
@@ -151,7 +172,9 @@ const EditUser = ({editUser, onCancel}: EditItemProps) => {
               marginTop: "20px",
               borderRadius: "14px",
               height: "150px",
-              borderColor: "#C6C5D0"
+              borderColor: "#C6C5D0",
+              backgroundColor: "#fff",
+              color: "#333"
             }} defaultValue={editUser.description} id="bootstrap-input" onChange={(e) => handletextAreaChange(e)}/>
           </FormControl>
         </Box></>
@@ -159,7 +182,7 @@ const EditUser = ({editUser, onCancel}: EditItemProps) => {
             <IconButton color="warning" aria-label="cancel update" onClick={handleCancel}>
               <HighlightOffRoundedIcon/>
             </IconButton>
-            <IconButton color="success" aria-label="update data" disabled={editBtnDisabled} >
+            <IconButton color="success" aria-label="update data" disabled={editBtnDisabled} onClick={handleUpdateData} >
               <CheckCircleOutlineRoundedIcon/>
             </IconButton>
         </Box>

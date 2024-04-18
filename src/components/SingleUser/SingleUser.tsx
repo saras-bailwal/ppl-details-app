@@ -21,7 +21,7 @@ const Item = styled(Paper)(({ theme }) => ({
   }));
 
 
-type UserItemProps = {
+  export interface UserItemProps {
     userData: any;
   };
 
