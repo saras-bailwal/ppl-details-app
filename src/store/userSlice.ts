@@ -1,4 +1,3 @@
-import { GetDefaultEnhancers } from './../../node_modules/@reduxjs/toolkit/dist/getDefaultEnhancers.d';
 import { usersList } from './../mockData';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';

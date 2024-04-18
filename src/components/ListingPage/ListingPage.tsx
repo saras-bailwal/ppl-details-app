@@ -4,7 +4,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
@@ -14,20 +14,11 @@ import SingleUser from '../SingleUser';
 import { useAppSelector } from '../../store/store';
 
 const ListingPage = () => {
-    const [users, setUsers] = useState([]);
     const [search, setSearch] = useState("");
     const [expanded, setExpanded] = useState<string | false>(false);
 
     const usersStateList = useAppSelector(state=>state.usersData.users);
 
-    useEffect(() => {
-        getUsers(usersStateList);
-    }, []);
-
-    //Simulating making api call with useEffect
-    const getUsers = (usersStateList: any) => {
-        setUsers(usersStateList);
-    };
     const handleChange =
         (panel: string) => (_event: React.SyntheticEvent, isExpanded: boolean) => {
             setExpanded(isExpanded ? panel : false);
