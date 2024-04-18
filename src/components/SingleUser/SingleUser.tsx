@@ -6,6 +6,7 @@ import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import DeleteDialog from "../DeleteDialog/DeleteDialog";
 
 const Item = styled(Paper)(({ theme }) => ({
     padding: theme.spacing(1),
@@ -14,7 +15,6 @@ const Item = styled(Paper)(({ theme }) => ({
     flexDirection: 'column',
     boxShadow: "none" 
   }));
-
 
 
 type UserItemProps = {
@@ -30,7 +30,7 @@ const SingleUser = ({
     getEditUser,
     setEditUser,
   }: UserItemProps) => {
-
+    const [open, setOpen] = React.useState(false);
     // const dispatch = useDispatch();
 
     // const handleToggleTodoChange = () =>
@@ -42,6 +42,14 @@ const SingleUser = ({
     //     setEditUser({ id: "", task: "", completed: false });
     //   }
     // };
+
+    const handleDeleteUserClick = () => {
+        setOpen(true);
+    }
+
+    const handleClose = () => {
+        setOpen(false);
+      };
 
     console.log("userData ===== ", userData);
     console.log("editUser ==== ", editUser);
@@ -80,16 +88,15 @@ const SingleUser = ({
                 </Grid>
             </Grid>
             <Box sx={{display: "flex", justifyContent: "flex-end"}}>
-                <IconButton color="warning" aria-label="delete user">
+                <IconButton color="warning" aria-label="delete user" onClick={handleDeleteUserClick}>
                     <DeleteOutlineOutlinedIcon />
                 </IconButton>
                 <IconButton color="primary" aria-label="edit user">
                     <EditOutlinedIcon />
                 </IconButton>
             </Box>
-            
         </Box>
-        
+            <DeleteDialog id="ringtone-menu" open={open} onClose={handleClose}/>
         </>
     )
 }
