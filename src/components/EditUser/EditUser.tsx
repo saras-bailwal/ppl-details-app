@@ -66,7 +66,7 @@ const EditUser = ({editUser, onCancel}: EditItemProps) => {
 
 
 
-  const [editBtnDisabled, setEditBtnDisabled] = React.useState(false);
+  const [editBtnDisabled, setEditBtnDisabled] = React.useState(true);
   const [msg, setMsg] = React.useState("");
     const handleCancel = () => {
       onCancel();
@@ -146,7 +146,7 @@ const EditUser = ({editUser, onCancel}: EditItemProps) => {
           id="demo-customized-select"
           defaultValue={editUser.gender}
           input={<BootstrapInput />}
-          onChange={(e) => setGenderData(e.target.value)}
+          onChange={(e) => {setGenderData(e.target.value); setEditBtnDisabled(false);}}
         >
           {genderOptions.map((option) => (
             <MenuItem key={option.value} value={option.value}>
@@ -159,7 +159,7 @@ const EditUser = ({editUser, onCancel}: EditItemProps) => {
           <InputLabel shrink htmlFor="bootstrap-input" sx={{ marginLeft: "10px" }}>
             Country
           </InputLabel>
-          <BootstrapInput type='text' onChange={(e) => setCountryData(e.target.value)} defaultValue={editUser.country} id="bootstrap-input"/>
+          <BootstrapInput type='text' onChange={(e) => {setCountryData(e.target.value);setEditBtnDisabled(false);}} defaultValue={editUser.country} id="bootstrap-input"/>
         </FormControl>
       </Box>
         <Box>
